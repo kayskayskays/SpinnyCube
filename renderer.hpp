@@ -22,14 +22,13 @@ struct Renderer {
             target.draw(circle);
         }
 
-        for (uint i{0}; i < vertices.size(); i++) {
-            for (uint j{0}; j < vertices.size(); j++) {
-                sf::Vertex line[] {
-                    sf::Vertex(sf::Vector2f(vertices[i].x, vertices[i].y)),
-                    sf::Vertex(sf::Vector2f(vertices[j].x, vertices[j].y))
-                };
-                target.draw(line, 2, sf::Lines);
-            }
+        const auto& edges = cube.getEdges();
+        for (auto& edge : edges) {
+            sf::Vertex line[] {
+                sf::Vertex(sf::Vector2f(std::get<0>(edge).x, std::get<0>(edge).y)),
+                sf::Vertex(sf::Vector2f(std::get<1>(edge).x, std::get<1>(edge).y))
+            };
+            target.draw(line, 2, sf::Lines);
         }
     }
 };

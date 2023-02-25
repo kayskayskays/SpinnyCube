@@ -32,23 +32,55 @@ struct Cube { // a collection of vertices
         sf::Vector3f vertex_8 = {center.x - height / 2, center.y - height / 2, center.z + height / 2};
         vertices.emplace_back(vertex_8);
 
+        edges.emplace_back(vertex_1, vertex_2);
+        edges.emplace_back(vertex_1, vertex_3);
+        edges.emplace_back(vertex_1, vertex_5);
+        edges.emplace_back(vertex_2, vertex_4);
+        edges.emplace_back(vertex_2, vertex_6);
+        edges.emplace_back(vertex_3, vertex_4);
+        edges.emplace_back(vertex_3, vertex_7);
+        edges.emplace_back(vertex_4, vertex_8);
+        edges.emplace_back(vertex_5, vertex_6);
+        edges.emplace_back(vertex_5, vertex_7);
+        edges.emplace_back(vertex_6, vertex_8);
+        edges.emplace_back(vertex_7, vertex_8);
+
+    }
+
+    void updateEdges() {
+        edges.clear();
+        edges.emplace_back(vertices[0], vertices[1]);
+        edges.emplace_back(vertices[0], vertices[2]);
+        edges.emplace_back(vertices[0], vertices[4]);
+        edges.emplace_back(vertices[1], vertices[3]);
+        edges.emplace_back(vertices[1], vertices[5]);
+        edges.emplace_back(vertices[2], vertices[3]);
+        edges.emplace_back(vertices[2], vertices[6]);
+        edges.emplace_back(vertices[3], vertices[7]);
+        edges.emplace_back(vertices[4], vertices[5]);
+        edges.emplace_back(vertices[4], vertices[6]);
+        edges.emplace_back(vertices[5], vertices[7]);
+        edges.emplace_back(vertices[6], vertices[7]);
     }
 
     void rotateVerticesX(float angle) {
         for (auto& vertex : vertices) {
             vertex = Matrices::rotateVector(Matrices::getRotateX(angle), vertex);
+            updateEdges();
         }
     }
 
     void rotateVerticesY(float angle) {
         for (auto& vertex : vertices) {
             vertex = Matrices::rotateVector(Matrices::getRotateY(angle), vertex);
+            updateEdges();
         }
     }
 
     void rotateVerticesZ(float angle) {
         for (auto& vertex : vertices) {
             vertex = Matrices::rotateVector(Matrices::getRotateZ(angle), vertex);
+            updateEdges();
         }
     }
 
@@ -57,7 +89,9 @@ struct Cube { // a collection of vertices
         return vertices;
     }
 
-
-
+    [[nodiscard]]
+    std::vector<std::tuple<sf::Vector3f, sf::Vector3f>> getEdges() const {
+        return edges;
+    }
 
 };
