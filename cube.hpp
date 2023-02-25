@@ -5,15 +5,14 @@
 
 struct Cube { // a collection of vertices
 
-    sf::Vector3f position;
     std::vector<sf::Vector3f> vertices;
     std::vector<std::tuple<sf::Vector3f, sf::Vector3f>> edges;
-    float height = 300.0;
+    sf::Vector3f center;
 
     explicit
     Cube(float window_width, float height = 300) {
 
-        sf::Vector3f center = {window_width / 2, window_width / 2, window_width / 2};
+        center = {window_width / 2, window_width / 2, window_width / 2};
 
         sf::Vector3f vertex_1 = {center.x + height / 2, center.y + height / 2, center.z - height / 2};
         vertices.emplace_back(vertex_1);
@@ -65,23 +64,41 @@ struct Cube { // a collection of vertices
 
     void rotateVerticesX(float angle) {
         for (auto& vertex : vertices) {
+            translateVectorOrigin(vertex);
             vertex = Matrices::rotateVector(Matrices::getRotateX(angle), vertex);
+            translateVectorCenter(vertex);
             updateEdges();
         }
     }
 
     void rotateVerticesY(float angle) {
         for (auto& vertex : vertices) {
+            translateVectorOrigin(vertex);
             vertex = Matrices::rotateVector(Matrices::getRotateY(angle), vertex);
+            translateVectorCenter(vertex);
             updateEdges();
         }
     }
 
     void rotateVerticesZ(float angle) {
         for (auto& vertex : vertices) {
+            translateVectorOrigin(vertex);
             vertex = Matrices::rotateVector(Matrices::getRotateZ(angle), vertex);
+            translateVectorCenter(vertex);
             updateEdges();
         }
+    }
+
+    void translateVectorOrigin(sf::Vector3f& p) const {
+        p.x -= center.x;
+        p.y -= center.y;
+        p.z -= center.z;
+    }
+
+    void translateVectorCenter(sf::Vector3f& p) const {
+        p.x += center.x;
+        p.y += center.y;
+        p.z += center.z;
     }
 
     [[nodiscard]]

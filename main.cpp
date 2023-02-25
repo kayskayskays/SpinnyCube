@@ -12,7 +12,7 @@ int main() {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 1;
 
-    sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Cube", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Spinny Cube", sf::Style::Default, settings);
     window.setFramerateLimit(frame_rate);
 
     Renderer renderer(window);

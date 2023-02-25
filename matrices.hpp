@@ -2,7 +2,6 @@
 #include <cmath>
 #include <cstdlib>
 
-
 struct Matrices {
 
     static std::vector<std::vector<float>> getRotateX(float angle) {
