@@ -5,22 +5,67 @@
 
 struct Matrices {
 
-    float angle = 0.0f;
+    static std::vector<std::vector<float>> getRotateX(float angle) {
 
-    float rotateX[3][3] = {
-            {1, 0, 0},
-            {0, cos(angle), -sin(angle)},
-            {0, sin(angle), cos(angle)}
+        std::vector<std::vector<float>> rotateX = {
+            { 1.0f, 0.0f, 0.0f },
+            { 0.0f, cosf(angle), -sinf(angle) },
+            { 0.0f, sinf(angle), cosf(angle) }
+        };
+
+        return rotateX;
     };
 
-    float rotateY[3][3] = {
-            {cos(angle), 0, sin(angle)},
-            {0, 1, 0},
-            {-sin(angle), 0, cos(angle)}
+    static std::vector<std::vector<float>> getRotateY(float angle) {
+
+        std::vector<std::vector<float>> rotateY = {
+            { cosf(angle),  0.0f, sinf(angle)},
+            { 0.0f, 1.0f, 0.0f},
+            { -sinf(angle), 0.0f, cosf(angle)}
+        };
+
+        return rotateY;
+    }
+
+    static std::vector<std::vector<float>> getRotateZ(float angle) {
+
+        std::vector<std::vector<float>> rotateZ = {
+            { cosf(angle), -sinf(angle), 0.0f},
+            { sinf(angle), cosf(angle), 0.0f},
+            { 0.0f, 0.0f, 1.0f }
+        };
+
+        return rotateZ;
     };
 
-    float rotateZ[3][3] = {
+    static std::vector<std::vector<float>> compoundRotation3(std::vector<std::vector<float>> r1,
+                                                            std::vector<std::vector<float>> r2) {
+        std::vector<std::vector<float>> r = {
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0}
+        };
 
-    };
+        for (uint i{0}; i < 3; i++) {
+            for (uint j{0}; j < 3; j++) {
+                for (uint k{0}; k < 3; k++)  {
+                    r[i][j] += r1[i][k] * r2[k][j];
+                }
+            }
+        }
+
+        return r;
+    }
+
+    static sf::Vector3f rotateVector(std::vector<std::vector<float>> r, sf::Vector3f p) {
+
+        std::vector<float> v = {0.0f, 0.0f, 0.0f};
+
+        for (uint i{0}; i < 3; i++) {
+            v[i] = r[i][0] * p.x + r[i][1] * p.y + r[i][2] * p.z;
+        }
+
+        return sf::Vector3f{v[0], v[1], v[2]};
+    }
 
 };
