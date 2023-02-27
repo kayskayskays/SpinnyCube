@@ -37,25 +37,6 @@ struct Matrices {
         return rotateZ;
     };
 
-    static std::vector<std::vector<float>> compoundRotation3(std::vector<std::vector<float>> r1,
-                                                            std::vector<std::vector<float>> r2) {
-        std::vector<std::vector<float>> r = {
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0}
-        };
-
-        for (uint i{0}; i < 3; i++) {
-            for (uint j{0}; j < 3; j++) {
-                for (uint k{0}; k < 3; k++)  {
-                    r[i][j] += r1[i][k] * r2[k][j];
-                }
-            }
-        }
-
-        return r;
-    }
-
     static sf::Vector3f rotateVector(std::vector<std::vector<float>> r, sf::Vector3f p) {
 
         std::vector<float> v = {0.0f, 0.0f, 0.0f};

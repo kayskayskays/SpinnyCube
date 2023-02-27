@@ -31,19 +31,7 @@ struct Cube { // a collection of vertices
         sf::Vector3f vertex_8 = {center.x - height / 2, center.y - height / 2, center.z + height / 2};
         vertices.emplace_back(vertex_8);
 
-        edges.emplace_back(vertex_1, vertex_2);
-        edges.emplace_back(vertex_1, vertex_3);
-        edges.emplace_back(vertex_1, vertex_5);
-        edges.emplace_back(vertex_2, vertex_4);
-        edges.emplace_back(vertex_2, vertex_6);
-        edges.emplace_back(vertex_3, vertex_4);
-        edges.emplace_back(vertex_3, vertex_7);
-        edges.emplace_back(vertex_4, vertex_8);
-        edges.emplace_back(vertex_5, vertex_6);
-        edges.emplace_back(vertex_5, vertex_7);
-        edges.emplace_back(vertex_6, vertex_8);
-        edges.emplace_back(vertex_7, vertex_8);
-
+        updateEdges();
     }
 
     void updateEdges() {

@@ -19,10 +19,7 @@ int main() {
 
     Cube cube(static_cast<float>(window_width), 300);
 
-    const float angle_increment = 0.0005f;
-    float roll = 0.0f;  // x
-    float pitch = 0.0f; // y
-    float yaw = 0.0f;  // z
+    const float angle_increment = 0.05f;
 
     while (window.isOpen()) {
 
@@ -33,34 +30,28 @@ int main() {
                 window.close();
             }
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-                roll -= angle_increment;
-                cube.rotateVerticesX(roll);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+                cube.rotateVerticesX(-angle_increment);
             }
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-                roll += angle_increment;
-                cube.rotateVerticesX(roll);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
+                cube.rotateVerticesX(angle_increment);
             }
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-                pitch -= angle_increment;
-                cube.rotateVerticesY(pitch);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+                cube.rotateVerticesY(-angle_increment);
             }
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-                pitch += angle_increment;
-                cube.rotateVerticesY(pitch);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+                cube.rotateVerticesY(angle_increment);
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-                yaw -= angle_increment;
-                cube.rotateVerticesZ(yaw);
+                cube.rotateVerticesZ(-angle_increment);
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-                yaw += angle_increment;
-                cube.rotateVerticesZ(yaw);
+                cube.rotateVerticesZ(angle_increment);
             }
 
         }
